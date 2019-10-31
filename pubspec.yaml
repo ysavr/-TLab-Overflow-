@@ -27,7 +27,9 @@ dependencies:
   flutter_pagewise: ^1.2.3
   flutter_spinkit: ^4.0.0
   fluttertoast: ^3.1.2
-  query_params: '^0.6.1'
+  intl: ^0.16.0
+  query_params: ^0.6.1
+  shared_preferences: ^0.5.4+3
 
 dev_dependencies:
   flutter_test:
@@ -102,3 +104,4 @@ flutter:
     - assets/images/mail.png
     - assets/images/notification.png
     - assets/images/profile.png
+    - assets/images/filter-button.png
