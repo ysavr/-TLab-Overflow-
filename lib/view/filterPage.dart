@@ -196,8 +196,8 @@ class _FilterPageState extends State<FilterPage> {
                     builder: (BuildContext context) =>
                       HomePage(
                         pageSize: int.parse(this._pageSelected),
-                        fromDate: this.selectedFromDate.millisecondsSinceEpoch,
-                        toDate: this.selectedToDate.millisecondsSinceEpoch,
+                        fromDate: this.fromDate,
+                        toDate: this.toDate,
                       ),
                   ),
                 );
@@ -250,6 +250,15 @@ class _FilterPageState extends State<FilterPage> {
         this._pageSelected = _dropDownMenuItems[0].value;
       }
 
+      if(prefs.getString('fromDate')!=null) {
+        dateFromController = new TextEditingController(text: prefs.getString('fromDate'));
+      }
+      print('fromDate: '+prefs.getString('fromDate'));
+
+      if(prefs.getString('toDate')!=null) {
+        dateToController = new TextEditingController(text: prefs.getString('toDate'));
+      }
+      print('toDate: '+prefs.getString('toDate').toString());
     });
   }
 
@@ -278,14 +287,14 @@ class _FilterPageState extends State<FilterPage> {
       setState(() {
         selectedFromDate = picked;
         fromDate = DateFormat('yyyy-MM-dd').format(selectedFromDate);
-        saveFromDate(selectedFromDate.millisecondsSinceEpoch);
+        saveFromDate(fromDate);
         dateFromController = new TextEditingController(text: fromDate);
       });
     } else if (picked == selectedFromDate){
       setState(() {
         selectedFromDate = DateTime.now();
-        saveFromDate(selectedFromDate.millisecondsSinceEpoch);
         fromDate = DateFormat('yyyy-MM-dd').format(selectedFromDate);
+        saveFromDate(fromDate);
         dateFromController = new TextEditingController(text: fromDate);
       });
     }
@@ -315,15 +324,15 @@ class _FilterPageState extends State<FilterPage> {
     else if (picked != null && picked != selectedToDate) {
       setState(() {
         selectedToDate = picked;
-        saveToDate(selectedToDate.millisecondsSinceEpoch);
         toDate = DateFormat('yyyy-MM-dd').format(selectedToDate);
+        saveToDate(toDate);
         dateToController = new TextEditingController(text: toDate);
       });
     } else if (picked == selectedToDate){
       setState(() {
         selectedToDate = DateTime.now();
-        saveToDate(selectedToDate.millisecondsSinceEpoch);
         toDate = DateFormat('yyyy-MM-dd').format(selectedToDate);
+        saveToDate(toDate);
         dateToController = new TextEditingController(text: toDate);
       });
     }
@@ -334,14 +343,14 @@ class _FilterPageState extends State<FilterPage> {
     prefs.setInt('pagesize', int.parse(size));
   }
 
-  saveFromDate(int fromDate) async{
+  saveFromDate(String fromDate) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('fromDate', fromDate);
+    prefs.setString('fromDate', fromDate);
   }
 
-  saveToDate(int toDate) async {
+  saveToDate(String toDate) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('toDate', toDate);
+    prefs.setString('toDate', toDate);
   }
 
 }

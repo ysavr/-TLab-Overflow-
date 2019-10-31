@@ -20,8 +20,8 @@ class HomePage extends StatefulWidget {
   }) : super(key : key);
 
   final int pageSize;
-  final int fromDate;
-  final int toDate;
+  final String fromDate;
+  final String toDate;
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> {
   static Connection api = new Connection();
   static String _searchText = 'stackoverflow';
   static int pageSize = 10;
-  static int fromDate = 0;
-  static int toDate = 0;
+  static String fromDate;
+  static String toDate;
   static BuildContext myContext;
   TextEditingController searchController = new TextEditingController();
 
@@ -283,12 +283,12 @@ class _HomePageState extends State<HomePage> {
         _HomePageState.pageSize = prefs.getInt('pagesize');
       }
 
-      if(prefs.getInt('fromDate')!=null) {
-        _HomePageState.fromDate = prefs.getInt('fromDate');
+      if(prefs.getString('fromDate')!=null) {
+        _HomePageState.fromDate = prefs.getString('fromDate');
       }
 
-      if(prefs.getInt('toDate')!=null) {
-        _HomePageState.toDate = prefs.getInt('toDate');
+      if(prefs.getString('toDate')!=null) {
+        _HomePageState.toDate = prefs.getString('toDate');
       }
     });
   }
